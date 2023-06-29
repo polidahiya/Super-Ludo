@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8" />
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="game">
+      <div class=" startsection section">
+        <div class="dice dice1" onclick="rotate_dice(this,1)">1</div>
+        <div class="start bigbox">
+          <div class="assembleplayer1 assemble"></div>
+          <div class="assembleplayer2 assemble"></div>
+          <div class="assembleplayer3 assemble"></div>
+          <div class="assembleplayer4 assemble"></div>
+        </div>
+        <div class="dice dice2" onclick="rotate_dice(this,2)">2</div>
+      </div>
+      <div class="board">
+        <div class="player player1"></div>
+        <div class="player player2"></div>
+        <div class="player player3"></div>
+        <div class="player player4"></div>
+      </div>
+      <div class="finishsection section">
+        <div class="dice dice3" onclick="rotate_dice(this,3)">3</div>
+        <div class="finish bigbox">
+        </div>
+        <div class="dice dice4" onclick="rotate_dice(this,4)">4</div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
