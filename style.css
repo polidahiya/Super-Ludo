@@ -25,6 +25,7 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   position: relative;
+  background: rgba(0, 0, 0, 0.5);
 }
 .section {
   display: flex;
@@ -85,7 +86,7 @@ body {
   height: 100%;
   aspect-ratio: 1;
   border: 1px solid rgb(255, 255, 255);
-  background: rgba(100, 97, 97, 0.342);
+  /* background: rgba(100, 97, 97, 0.342); */
   color: white;
 }
 
@@ -117,6 +118,7 @@ body {
   background-position: top;
   background-repeat: no-repeat;
   background-size: cover;
+  display: none;
 }
 
 /*  */
