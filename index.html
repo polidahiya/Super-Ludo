@@ -4,11 +4,17 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,200&display=swap"rel="stylesheet"/>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="fullscreenbutton" onclick="fullscreen()">
+    </div>
     <div class="game">
-      <div class=" startsection section">
+      <div class="startsection section">
         <div class="dice dice1" onclick="roll_dice(this,1)"></div>
         <div class="start bigbox">
           <div class="assembleplayer1 assemble"></div>
@@ -26,10 +32,19 @@
       </div>
       <div class="finishsection section">
         <div class="dice dice3" onclick="roll_dice(this,3)"></div>
-        <div class="finish bigbox">
-        </div>
+        <div class="finish bigbox"></div>
         <div class="dice dice4" onclick="roll_dice(this,4)"></div>
       </div>
+    </div>
+    <div class="startmenu">
+      <div class="startbutton hoverscale" onclick="hide(this)"></div>
+    </div>
+    <div class="winmenu">
+      <div class="winfloatmenu">
+        <div class="winname">spideman win</div>
+        <div class="playagainbutton hoverscale" onclick="restart()"></div>
+      </div>
+      <div class="winmenugreeting"></div>
     </div>
     <script src="script.js"></script>
   </body>

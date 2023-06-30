@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
 }
 body {
   margin: 0;
@@ -7,12 +9,104 @@ body {
   height: 100vh;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: top;
   background-image: url("./images/bgplayer1.jpg");
 
   user-select: none;
 }
+.fullscreenbutton{
+  position: absolute;
+  height: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: url("./images/fullscreenbutton.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: 100;
+  margin: 20px 20px;
 
+}
+.startmenu{
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+  background: url("./images/startmenubg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+.startbutton{
+  position: absolute;
+  height:20vh;
+  aspect-ratio: 16/9;
+  background: url("./images/startbutton.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  bottom: 10vh;
+  left: 10vw;
+}
+/*  */
+.winmenu{
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+  background: green;
+  background-size: cover;
+  background-position: top;
+  display: none;
+
+}
+.winfloatmenu{
+  position: absolute;
+  height: 50vh;
+  width: 50vw;
+  bottom: 0;
+  left: calc(50% - 25vw);
+  display: flex;
+  flex-direction: column;
+}
+.winname{
+height: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+color: aliceblue;
+font-size: 7vh;
+text-shadow: 2px 2px 1px black;
+}
+.playagainbutton{
+  height: 30%;
+  aspect-ratio: 16/9;
+  align-self: center;
+  background: url("./images/playagain2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.hoverscale{
+  transition: 0.3s;
+}
+.hoverscale:hover{
+  transform: scale(1.2);
+}
+.winmenugreeting{
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 20;
+  background: url("./images/winscreenbg.gif");
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+}
+/*  */
 .game {
   display: flex;
   flex-direction: column;
