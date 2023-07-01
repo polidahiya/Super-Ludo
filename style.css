@@ -83,7 +83,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
-  display: none;
+  /* display: none; */
 }
 .startbutton{
   position: absolute;
