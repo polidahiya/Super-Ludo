@@ -26,6 +26,8 @@ let player4bg=new Image().src='./images/bgplayer4.jpg'
 let flags={
     player_turn:1,
     fullscreen:false,
+    sidemenu:false,
+    dice_value:0,
 }
 let players_position={
     player1:0,
@@ -39,17 +41,15 @@ let players_unlock=[
     {status:false,ready:false},
     {status:false,ready:false},
 ]
-let dice_value={
-    dice1:0,
-    dice2:0,
-    dice3:0,
-    dice4:0,
-}
+
+
 function roll_dice(dice,dice_number){
     if(flags.player_turn==dice_number){
         let dice_outcome=Math.floor(Math.random()*6+1)
-
-
+        flags.dice_value=dice_outcome
+        if(flags.player_turn==dice_number){
+        handledice(dice,dice_number)
+        }
         selectall(".player").forEach(item=>{
             item.style.setProperty("--steps",`${dice_outcome}` );
         })
@@ -66,28 +66,45 @@ function roll_dice(dice,dice_number){
         }
         
         // 
-        selectall(".dice").forEach((dice1,index)=>{
-            dice1.innerText=""
-        })
-        dice.innerText=dice_outcome
-        // 
         if(dice_outcome!=6){
             if(flags.player_turn!=4){
                 flags.player_turn+=1
                 changebg()
+
             }else{
                 flags.player_turn=1 
                 changebg()
             }
         }
     }
-    selectall(".dice").forEach((dice2,index)=>{
-        index==(flags.player_turn-1)?dice2.style="border:3px solid rgb(0, 255, 0)":dice2.style="border:3px solid transparent"
-        // index==(flags.player_turn-1)?  ( (dice_outcome==6)?dice2.innerText="6,roll":dice2.innerText="roll" )    :dice2.innerText=""
-       
-    })
-   
 }
+//
+function handledice(dice,dice_number){
+    dice.style.backgroundImage='url("./images/diceroll.gif")';
+    setTimeout(()=>{
+        dice.style.backgroundImage=`url("./images/dice${flags.dice_value}.jpg")`;
+        // 
+        if(flags.dice_value!=6){
+           if(dice_number!=4){
+            selectall(".dice").forEach((item,index)=>{
+                (index==dice_number)?item.style.border="3px solid rgb(0, 255, 0)":item.style.border="3px solid transparent"
+            })
+             }else{
+               selectall(".dice").forEach((item,index)=>{
+                   (index==0)?item.style.border="3px solid rgb(0, 255, 0)":item.style.border="3px solid transparent"
+               })
+           }
+        }
+        else{
+            selectall(".dice").forEach((item,index)=>{
+                ((index+1)==(dice_number))?item.style.border="3px solid rgb(0, 255, 0)":item.style.border="3px solid transparent"
+            })
+        }
+    },1000)
+    
+}
+
+
 // changebg
 function changebg(){
     if(flags.player_turn==1){
@@ -311,6 +328,20 @@ function restart(){
     handledisplay(2,false)
     handledisplay(3,false)
     handledisplay(4,false)
+
+    let dummydice=select1(".dice1")
+    handledice(dummydice,0)
 }
 
-
+// 
+function sidemenu(){
+    if(flags.sidemenu){
+        select1(".sidemenu").style="transform:translateX(200px)"
+       select1(".menubuttonspan").style.display="none"
+      flags.sidemenu=false
+   }else{
+       select1(".sidemenu").style="transform:translateX(0px)"
+       select1(".menubuttonspan").style.display="block"
+      flags.sidemenu=true
+   }
+}
