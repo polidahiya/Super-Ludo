@@ -171,7 +171,7 @@ text-shadow: 2px 2px 1px black;
 .section {
   display: flex;
   justify-content: space-between;
-  padding: 10px 40px;
+  padding: 0px 70px;
 }
 .finishsection {
   flex-direction: row-reverse;
@@ -183,6 +183,7 @@ text-shadow: 2px 2px 1px black;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px 0px;
 }
 .assembleplayer1 {
   background: url("./images/player1.jpeg");
@@ -204,16 +205,19 @@ text-shadow: 2px 2px 1px black;
   width: 100%;
 }
 .dicebox{
+  height: 15vh;
+  aspect-ratio: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 .dicebox>p{
   color: white;
-  text-shadow: 2px 2px 0px black;
+  text-shadow: 2px 2px 0px black;line-height: 0px;
 }
 .dice {
-  height: 10vh;
+  height: 100%;
   aspect-ratio: 1;
   border: 1px solid;
   background: url("./images/dice1.jpg");
@@ -224,22 +228,17 @@ text-shadow: 2px 2px 1px black;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 1.5vh;
+  
 }
 .dice1 {
   border: 3px solid rgb(0, 255, 0);
-}
-
-.dice1,
-.dice2 {
-  align-self: flex-end;
 }
 .tile {
   box-sizing: border-box;
   height: 100%;
   aspect-ratio: 1;
   border: 1px solid rgb(255, 255, 255);
-  /* background: rgba(100, 97, 97, 0.342); */
   color: white;
 }
 
@@ -296,8 +295,8 @@ text-shadow: 2px 2px 1px black;
     flex-direction: column;
   }
   .bigbox {
-    height: 50vh;
-    aspect-ratio: 9/16;
+    height: 65vh;
+    aspect-ratio: 7/16;
     align-self: center;
     flex-direction: column;
   }
@@ -306,15 +305,14 @@ text-shadow: 2px 2px 1px black;
     background-repeat: no-repeat;
     background-size: cover;
   }
+  .dicebox{
+    height: 16vh;
+  }
   .dice {
-    width: 80px;
-    height: auto;
+    height: 100%;
     aspect-ratio: 1 !important;
   }
-  .dice1,
-  .dice2 {
-    align-self: center;
-  }
+ 
 
   .player {
     height: calc(100vh / 10);
