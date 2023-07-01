@@ -123,13 +123,15 @@ function changebg(){
 
 // 
 function handledisplay(value,hideorshow){
-    if(hideorshow){
-        select1(`.assembleplayer${value}`).style.display="none"
-        select1(`.player${value}`).style.display="block"
-    }else{
-        select1(`.assembleplayer${value}`).style.display="block"
-        select1(`.player${value}`).style.display="none"
-    }
+    setTimeout(()=>{
+        if(hideorshow){
+            select1(`.assembleplayer${value}`).style.display="none"
+            select1(`.player${value}`).style.display="block"
+        }else{
+            select1(`.assembleplayer${value}`).style.display="block"
+            select1(`.player${value}`).style.display="none"
+        }
+    },1000)
 }
 
 // move
