@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 900;
 }
 body {
@@ -15,7 +15,7 @@ body {
 
   user-select: none;
 }
-.menubutton{
+.menubutton {
   height: 50px;
   aspect-ratio: 1;
   background: url("./images/fullscreenbutton.png");
@@ -33,7 +33,7 @@ body {
   align-items: center;
   padding: 10px;
 }
-.menubuttonspan{
+.menubuttonspan {
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -41,7 +41,7 @@ body {
   background: rgba(0, 0, 0, 0.249);
   display: none;
 }
-.sidemenu{
+.sidemenu {
   height: 100vh;
   width: 200px;
   background: url("./images/bgplayer2.jpg");
@@ -60,7 +60,7 @@ body {
   transform: translateX(200px);
   transition: 0.3s;
 }
-.sidemenubuttons{
+.sidemenubuttons {
   height: 50px;
   width: 100%;
   border: 1px solid white;
@@ -74,7 +74,7 @@ body {
   color: white;
 }
 
-.startmenu{
+.startmenu {
   position: absolute;
   top: 0;
   height: 100vh;
@@ -86,9 +86,9 @@ body {
   background-position: top;
   /* display: none; */
 }
-.startbutton{
+.startbutton {
   position: absolute;
-  height:15vh;
+  height: 15vh;
   aspect-ratio: 16/9;
   background: url("./images/startbutton.png");
   background-size: contain;
@@ -98,7 +98,7 @@ body {
   left: calc(50% - 13vh);
 }
 /*  */
-.winmenu{
+.winmenu {
   position: absolute;
   top: 0;
   height: 100vh;
@@ -108,9 +108,8 @@ body {
   background-size: cover;
   background-position: top;
   display: none;
-
 }
-.winfloatmenu{
+.winfloatmenu {
   position: absolute;
   height: 50vh;
   width: 50vw;
@@ -119,16 +118,16 @@ body {
   display: flex;
   flex-direction: column;
 }
-.winname{
-height: 50%;
-display: flex;
-justify-content: center;
-align-items: center;
-color: aliceblue;
-font-size: 7vh;
-text-shadow: 2px 2px 1px black;
+.winname {
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
+  font-size: 7vh;
+  text-shadow: 2px 2px 1px black;
 }
-.playagainbutton{
+.playagainbutton {
   height: 30%;
   aspect-ratio: 16/9;
   align-self: center;
@@ -137,13 +136,13 @@ text-shadow: 2px 2px 1px black;
   background-repeat: no-repeat;
   background-position: center;
 }
-.hoverscale{
+.hoverscale {
   transition: 0.3s;
 }
-.hoverscale:hover{
+.hoverscale:hover {
   transform: scale(1.2);
 }
-.winmenugreeting{
+.winmenugreeting {
   position: absolute;
   top: 0;
   height: 100vh;
@@ -205,7 +204,7 @@ text-shadow: 2px 2px 1px black;
   height: 100%;
   width: 100%;
 }
-.dicebox{
+.dicebox {
   height: 15vh;
   aspect-ratio: 1;
   display: flex;
@@ -213,9 +212,10 @@ text-shadow: 2px 2px 1px black;
   align-items: center;
   justify-content: center;
 }
-.dicebox>p{
+.dicebox > p {
   color: white;
-  text-shadow: 2px 2px 0px black;line-height: 0px;
+  text-shadow: 2px 2px 0px black;
+  line-height: 0px;
 }
 .dice {
   height: 100%;
@@ -230,7 +230,6 @@ text-shadow: 2px 2px 1px black;
   justify-content: center;
   align-items: center;
   border-radius: 1.5vh;
-  
 }
 .dice1 {
   border: 3px solid rgb(0, 255, 0);
@@ -246,7 +245,7 @@ text-shadow: 2px 2px 1px black;
   align-items: center;
   position: relative;
 }
-.tileteleport{
+.tileteleport {
   height: 100%;
   width: 100%;
   background: url("./images/teleport.png");
@@ -255,7 +254,7 @@ text-shadow: 2px 2px 1px black;
   animation: resize 1s infinite alternate;
   position: absolute;
 }
-.dangertile{
+.dangertile {
   height: 100%;
   width: 100%;
   background: url("./images/danger.png");
@@ -264,13 +263,21 @@ text-shadow: 2px 2px 1px black;
   animation: rotate 10s infinite linear;
   position: absolute;
 }
-@keyframes resize{
-  0%{transform: scale(1)}
-  100%{transform: scale(1.2)}
+@keyframes resize {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
 }
-@keyframes rotate{
-  0%{transform: rotateZ(0deg);}
-  100%{transform: rotateZ(-360deg);}
+@keyframes rotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(-360deg);
+  }
 }
 /* palyers */
 .player1 {
@@ -287,6 +294,7 @@ text-shadow: 2px 2px 1px black;
 }
 .player {
   position: absolute;
+  border: 5px solid white;
   --x: 0%;
   --y: 0%;
   top: var(--y);
@@ -336,14 +344,13 @@ text-shadow: 2px 2px 1px black;
     background-repeat: no-repeat;
     background-size: cover;
   }
-  .dicebox{
+  .dicebox {
     height: 16vh;
   }
   .dice {
     height: 100%;
     aspect-ratio: 1 !important;
   }
- 
 
   .player {
     height: calc(100vh / 10);
