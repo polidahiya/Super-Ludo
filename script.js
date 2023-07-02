@@ -8,8 +8,23 @@ function selectall(item){
 for(let i=0;i<100;i++){
     let tile=document.createElement("div")
     tile.classList.add("tile")
+   
+    
     tile.innerText=i+1
     select1(".board").appendChild(tile)
+
+    if(i==7 || i==19 ||i==43 ||i==68 ||i==84){
+        let teleport=document.createElement("div")
+        teleport.classList.add("tileteleport")
+        tile.appendChild(teleport)
+
+    }
+    if(i==10 || i==27 ||i==32 ||i==71 ||i==98){
+        let danger=document.createElement("div")
+        danger.classList.add("dangertile")
+        tile.appendChild(danger)
+
+    }
 }
 
 // 
@@ -17,8 +32,10 @@ let player1bg=new Image().src='./images/bgplayer1.jpg'
 let player2bg=new Image().src='./images/bgplayer2.jpg'
 let player3bg=new Image().src='./images/bgplayer3.jpg'
 let player4bg=new Image().src='./images/bgplayer4.jpg'
+let dicegif=new Image().src="./images/diceroll.gif"
 // 
-
+let sdiceroll=new Audio("./sounds/diceroll.wav")
+let hulkspawn=new Audio("./sounds/hulkspawn.mp3")
 
 
   
@@ -27,7 +44,8 @@ let flags={
     player_turn:1,
     fullscreen:false,
     sidemenu:false,
-    dice_value:0,
+    dice_value:1,
+    sound:true,
 }
 let players_position={
     player1:0,
@@ -41,6 +59,18 @@ let players_unlock=[
     {status:false,ready:false},
     {status:false,ready:false},
 ]
+let teleport={
+    player1:true,
+    player2:true,
+    player3:true,
+    player4:true,
+}
+let danger={
+    player1:true,
+    player2:true,
+    player3:true,
+    player4:true,
+}
 
 
 function roll_dice(dice,dice_number){
@@ -80,7 +110,8 @@ function roll_dice(dice,dice_number){
 }
 //
 function handledice(dice,dice_number){
-    dice.style.backgroundImage='url("./images/diceroll.gif")';
+    dice.style.backgroundImage='url('+dicegif+')';
+    sounds(sdiceroll)
     setTimeout(()=>{
         dice.style.backgroundImage=`url("./images/dice${flags.dice_value}.jpg")`;
         // 
@@ -102,6 +133,12 @@ function handledice(dice,dice_number){
         }
     },1000)
     
+}
+// 
+function sounds(item){
+    if(flags.sound){
+        item.play()
+    }
 }
 
 
@@ -127,9 +164,25 @@ function handledisplay(value,hideorshow){
         if(hideorshow){
             select1(`.assembleplayer${value}`).style.display="none"
             select1(`.player${value}`).style.display="block"
+            if(flags.dice_value==6){
+                if(value==1 && players_position.player1==0){
+                    sounds(hulkspawn)
+                }
+                if(value==2 && players_position.player2==0){
+                    sounds(hulkspawn)
+                }
+                if(value==3 && players_position.player3==0){
+                    sounds(hulkspawn)
+                }
+                if(value==4 && players_position.player4==0){
+                    sounds(hulkspawn)
+                }
+            }
         }else{
+           setTimeout(()=>{
             select1(`.assembleplayer${value}`).style.display="block"
             select1(`.player${value}`).style.display="none"
+           },1000)
         }
     },1000)
 }
@@ -146,11 +199,13 @@ function move(value,flagmove){
                 if( players_position.player1>99){
                     players_position.player1-=value
                 }
-                player_position_style(".player1",players_position.player1)
+                player_position_style("player1",players_position.player1)
+                teleport.player1=true
+                checkspecialtile("player1")
+            }
+            check_win(1)
         }
-        check_win(1)
-        }
-    
+        
         if(flags.player_turn==2 ){
             if( players_position.player2<99){
                 players_position.player2+=value
@@ -160,9 +215,11 @@ function move(value,flagmove){
                 if( players_position.player2>99){
                     players_position.player2-=value
                 }
-                player_position_style(".player2",players_position.player2)
-        }
-        check_win(2)
+                player_position_style("player2",players_position.player2)
+                teleport.player2=true
+                checkspecialtile("player2")
+            }
+            check_win(2)
         }
         if(flags.player_turn==3 ){
             if( players_position.player3<99){
@@ -173,9 +230,11 @@ function move(value,flagmove){
                 if( players_position.player3>99){
                     players_position.player3-=value
                 }
-                player_position_style(".player3",players_position.player3)
-        }
-        check_win(3)
+                player_position_style("player3",players_position.player3)
+                teleport.player3=true
+                checkspecialtile("player3")
+            }
+            check_win(3)
         }
         if(flags.player_turn==4 ){
             if( players_position.player4<99){
@@ -186,7 +245,9 @@ function move(value,flagmove){
                 if( players_position.player4>99){
                     players_position.player4-=value
                 }
-                player_position_style(".player4",players_position.player4)
+                player_position_style("player4",players_position.player4)
+                teleport.player4=true
+                checkspecialtile("player4")
         }
         check_win(4)
         }
@@ -194,8 +255,8 @@ function move(value,flagmove){
 }
 // 
 function player_position_style(value1,value2){
-    select1(value1).style.setProperty("--x",`${(value2%10)*10}%` );
-    select1(value1).style.setProperty("--y",`${(Math.floor(value2/10))*10}%` );
+    select1("."+value1).style.setProperty("--x",`${(value2%10)*10}%` );
+    select1("."+value1).style.setProperty("--y",`${(Math.floor(value2/10))*10}%` );
 }
 
 // cutcheck
@@ -204,11 +265,11 @@ function check_cut(value){
     if(value==1){
         for (const key in players_position) {
             if(players_position.player1==players_position[key] && key!="player1" ){
-                if(key=="player2"){ players_unlock[1].status=false;players_unlock[1].ready=false;player_position_style(".player2",players_position.player2);handledisplay(2,false);}
-                if(key=="player3"){ players_unlock[2].status=false;players_unlock[2].ready=false;player_position_style(".player3",players_position.player3);handledisplay(3,false);}
-                if(key=="player4"){ players_unlock[3].status=false;players_unlock[3].ready=false;player_position_style(".player4",players_position.player4);handledisplay(4,false);}
+                if(key=="player2"){ players_unlock[1].status=false;players_unlock[1].ready=false;player_position_style("player2",players_position.player2);handledisplay(2,false);}
+                if(key=="player3"){ players_unlock[2].status=false;players_unlock[2].ready=false;player_position_style("player3",players_position.player3);handledisplay(3,false);}
+                if(key=="player4"){ players_unlock[3].status=false;players_unlock[3].ready=false;player_position_style("player4",players_position.player4);handledisplay(4,false);}
                 players_position[key]=0
-                console.log(players_position);
+                // console.log(players_position);
                 players_position.player1=savepositions.player1
             }
         }
@@ -216,11 +277,11 @@ function check_cut(value){
     if(value==2){
         for (const key in players_position) {
             if(players_position.player2==players_position[key] && key!="player2"){
-                if(key=="player1"){ players_unlock[0].status=false;players_unlock[0].ready=false;player_position_style(".player1",players_position.player1);handledisplay(1,false);}
-                if(key=="player3"){ players_unlock[2].status=false;players_unlock[2].ready=false;player_position_style(".player3",players_position.player3);handledisplay(3,false);}
-                if(key=="player4"){ players_unlock[3].status=false;players_unlock[3].ready=false;player_position_style(".player4",players_position.player4);handledisplay(4,false);}
+                if(key=="player1"){ players_unlock[0].status=false;players_unlock[0].ready=false;player_position_style("player1",players_position.player1);handledisplay(1,false);}
+                if(key=="player3"){ players_unlock[2].status=false;players_unlock[2].ready=false;player_position_style("player3",players_position.player3);handledisplay(3,false);}
+                if(key=="player4"){ players_unlock[3].status=false;players_unlock[3].ready=false;player_position_style("player4",players_position.player4);handledisplay(4,false);}
                 players_position[key]=0
-                console.log(players_position);
+                // console.log(players_position);
                 players_position.player2=savepositions.player2
             }
         }
@@ -228,11 +289,11 @@ function check_cut(value){
     if(value==3){
         for (const key in players_position) {
             if(players_position.player3==players_position[key] && key!="player3"){
-                if(key=="player2"){ players_unlock[1].status=false;players_unlock[1].ready=false;player_position_style(".player2",players_position.player2);handledisplay(2,false);}
-                if(key=="player1"){ players_unlock[0].status=false;players_unlock[0].ready=false;player_position_style(".player1",players_position.player1);handledisplay(1,false);}
-                if(key=="player4"){ players_unlock[3].status=false;players_unlock[3].ready=false;player_position_style(".player4",players_position.player4);handledisplay(4,false);}
+                if(key=="player2"){ players_unlock[1].status=false;players_unlock[1].ready=false;player_position_style("player2",players_position.player2);handledisplay(2,false);}
+                if(key=="player1"){ players_unlock[0].status=false;players_unlock[0].ready=false;player_position_style("player1",players_position.player1);handledisplay(1,false);}
+                if(key=="player4"){ players_unlock[3].status=false;players_unlock[3].ready=false;player_position_style("player4",players_position.player4);handledisplay(4,false);}
                 players_position[key]=0
-                console.log(players_position);
+                // console.log(players_position);
                 players_position.player3=savepositions.player3
             }
         }
@@ -240,15 +301,29 @@ function check_cut(value){
     if(value==4){
         for (const key in players_position) {
             if(players_position.player4==players_position[key] && key!="player4"){
-                if(key=="player2"){ players_unlock[1].status=false;players_unlock[1].ready=false;player_position_style(".player2",players_position.player2);handledisplay(2,false);}
-                if(key=="player3"){ players_unlock[2].status=false;players_unlock[2].ready=false;player_position_style(".player3",players_position.player3);handledisplay(3,false);}
-                if(key=="player1"){ players_unlock[0].status=false;players_unlock[0].ready=false;player_position_style(".player1",players_position.player1);handledisplay(1,false);}
+                if(key=="player2"){ players_unlock[1].status=false;players_unlock[1].ready=false;player_position_style("player2",players_position.player2);handledisplay(2,false);}
+                if(key=="player3"){ players_unlock[2].status=false;players_unlock[2].ready=false;player_position_style("player3",players_position.player3);handledisplay(3,false);}
+                if(key=="player1"){ players_unlock[0].status=false;players_unlock[0].ready=false;player_position_style("player1",players_position.player1);handledisplay(1,false);}
                 players_position[key]=0
-                console.log(players_position);
+                // console.log(players_position);
                 players_position.player4=savepositions.player4
             }
         }
     }
+}
+//check special tile
+function checkspecialtile(value){
+           setTimeout(()=>{
+            if(players_position[value]== 7 && teleport[value]){ players_position[value]=19;player_position_style((value),players_position[value]);teleport[value]=false }
+            if(players_position[value]==19 && teleport[value]){ players_position[value]=43;player_position_style((value),players_position[value]);teleport[value]=false }
+            if(players_position[value]==43 && teleport[value]){ players_position[value]=68;player_position_style((value),players_position[value]);teleport[value]=false }
+            if(players_position[value]==68 && teleport[value]){ players_position[value]=84;player_position_style((value),players_position[value]);teleport[value]=false }
+
+            if(players_position[value]==27 && danger[value]){ players_position[value]=10;player_position_style(value,players_position[value]);danger[value]=false }
+            if(players_position[value]==32 && danger[value]){ players_position[value]=27;player_position_style(value,players_position[value]);danger[value]=false }
+            if(players_position[value]==71 && danger[value]){ players_position[value]=32;player_position_style(value,players_position[value]);danger[value]=false }
+            if(players_position[value]==98 && danger[value]){ players_position[value]=71;player_position_style(value,players_position[value]);danger[value]=false }
+           },2000)
 }
 
 // wincheck
@@ -291,15 +366,26 @@ function win(winnername,value){
     select1(".winname").innerText=winnername
     select1(".winmenu").style.backgroundImage=`url("${value}")`
 }
-
+// 
+function mute(item){
+    if(flags.sound){
+        item.innerText="Unmute"
+        flags.sound=false
+    }else{
+        item.innerText="mute"
+      flags.sound=true
+   }
+}
 
 // 
-function fullscreen(){
+function fullscreen(item){
    if(flags.fullscreen){
         window.document.exitFullscreen()
-      flags.fullscreen=false
-   }else{
+        item.innerText="Fullscreen"
+        flags.fullscreen=false
+    }else{
         window.document.documentElement.requestFullscreen()
+        item.innerText="Exit Fullscreen"
       flags.fullscreen=true
    }
 }
@@ -320,11 +406,12 @@ function restart(){
     players_unlock[2].ready=false;
     players_unlock[3].ready=false;
     select1(".winmenu").style.display="none"
+    changebg()
 
-    player_position_style(".player1",players_position.player1)
-    player_position_style(".player2",players_position.player2)
-    player_position_style(".player3",players_position.player3)
-    player_position_style(".player4",players_position.player4)
+    player_position_style("player1",players_position.player1)
+    player_position_style("player2",players_position.player2)
+    player_position_style("player3",players_position.player3)
+    player_position_style("player4",players_position.player4)
 
     handledisplay(1,false)
     handledisplay(2,false)

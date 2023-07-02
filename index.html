@@ -57,9 +57,9 @@
     </div>
     <span class="menubuttonspan" onclick="sidemenu()"></span>
     <div class="sidemenu">
-      <div class="sidemenubuttons hoverscale" onclick="restart()">Restart</div>
-      <div class="sidemenubuttons hoverscale">Mute</div>
-      <div class="sidemenubuttons hoverscale" onclick="fullscreen()">
+      <div class="sidemenubuttons hoverscale" onclick="restart();sidemenu()">Restart</div>
+      <div class="sidemenubuttons hoverscale" onclick="mute(this)">Mute</div>
+      <div class="sidemenubuttons hoverscale" onclick="fullscreen(this);sidemenu()">
         Fullscreen
       </div>
     </div>
