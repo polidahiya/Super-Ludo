@@ -5,7 +5,8 @@
 }
 body {
   margin: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
   height: 100vh;
   background-repeat: no-repeat;
   background-size: cover;

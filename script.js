@@ -376,10 +376,12 @@ function mute(item){
 function fullscreen(item){
    if(flags.fullscreen){
         window.document.exitFullscreen()
+        select1("body").style.overflowY="scroll"
         item.innerText="Fullscreen"
         flags.fullscreen=false
     }else{
         window.document.documentElement.requestFullscreen()
+        select1("body").style.overflowY="hidden"
         item.innerText="Exit Fullscreen"
       flags.fullscreen=true
    }
