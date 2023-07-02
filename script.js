@@ -200,6 +200,7 @@ function move(value,flagmove){
                     players_position.player1-=value
                 }
                 player_position_style("player1",players_position.player1)
+                danger.player1=true
                 teleport.player1=true
                 checkspecialtile("player1")
             }
@@ -216,6 +217,7 @@ function move(value,flagmove){
                     players_position.player2-=value
                 }
                 player_position_style("player2",players_position.player2)
+                danger.player2=true
                 teleport.player2=true
                 checkspecialtile("player2")
             }
@@ -231,6 +233,7 @@ function move(value,flagmove){
                     players_position.player3-=value
                 }
                 player_position_style("player3",players_position.player3)
+                danger.player3=true
                 teleport.player3=true
                 checkspecialtile("player3")
             }
@@ -246,6 +249,7 @@ function move(value,flagmove){
                     players_position.player4-=value
                 }
                 player_position_style("player4",players_position.player4)
+                danger.player4=true
                 teleport.player4=true
                 checkspecialtile("player4")
         }
@@ -261,52 +265,43 @@ function player_position_style(value1,value2){
 
 // cutcheck
 function check_cut(value){
-    let savepositions=players_position
     if(value==1){
         for (const key in players_position) {
             if(players_position.player1==players_position[key] && key!="player1" ){
+                players_position[key]=0
                 if(key=="player2"){ players_unlock[1].status=false;players_unlock[1].ready=false;player_position_style("player2",players_position.player2);handledisplay(2,false);}
                 if(key=="player3"){ players_unlock[2].status=false;players_unlock[2].ready=false;player_position_style("player3",players_position.player3);handledisplay(3,false);}
                 if(key=="player4"){ players_unlock[3].status=false;players_unlock[3].ready=false;player_position_style("player4",players_position.player4);handledisplay(4,false);}
-                players_position[key]=0
-                // console.log(players_position);
-                players_position.player1=savepositions.player1
             }
         }
     }
     if(value==2){
         for (const key in players_position) {
             if(players_position.player2==players_position[key] && key!="player2"){
+                players_position[key]=0
                 if(key=="player1"){ players_unlock[0].status=false;players_unlock[0].ready=false;player_position_style("player1",players_position.player1);handledisplay(1,false);}
                 if(key=="player3"){ players_unlock[2].status=false;players_unlock[2].ready=false;player_position_style("player3",players_position.player3);handledisplay(3,false);}
                 if(key=="player4"){ players_unlock[3].status=false;players_unlock[3].ready=false;player_position_style("player4",players_position.player4);handledisplay(4,false);}
-                players_position[key]=0
-                // console.log(players_position);
-                players_position.player2=savepositions.player2
             }
         }
     }
     if(value==3){
         for (const key in players_position) {
             if(players_position.player3==players_position[key] && key!="player3"){
+                players_position[key]=0
                 if(key=="player2"){ players_unlock[1].status=false;players_unlock[1].ready=false;player_position_style("player2",players_position.player2);handledisplay(2,false);}
                 if(key=="player1"){ players_unlock[0].status=false;players_unlock[0].ready=false;player_position_style("player1",players_position.player1);handledisplay(1,false);}
                 if(key=="player4"){ players_unlock[3].status=false;players_unlock[3].ready=false;player_position_style("player4",players_position.player4);handledisplay(4,false);}
-                players_position[key]=0
-                // console.log(players_position);
-                players_position.player3=savepositions.player3
             }
         }
     }
     if(value==4){
         for (const key in players_position) {
             if(players_position.player4==players_position[key] && key!="player4"){
+                players_position[key]=0
                 if(key=="player2"){ players_unlock[1].status=false;players_unlock[1].ready=false;player_position_style("player2",players_position.player2);handledisplay(2,false);}
                 if(key=="player3"){ players_unlock[2].status=false;players_unlock[2].ready=false;player_position_style("player3",players_position.player3);handledisplay(3,false);}
                 if(key=="player1"){ players_unlock[0].status=false;players_unlock[0].ready=false;player_position_style("player1",players_position.player1);handledisplay(1,false);}
-                players_position[key]=0
-                // console.log(players_position);
-                players_position.player4=savepositions.player4
             }
         }
     }
@@ -349,7 +344,7 @@ function check_win(player){
             win("Flash Win",player4bg)
         }
     }
-   },1000)
+   },2000)
 }
 
 

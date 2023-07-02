@@ -331,7 +331,7 @@ text-shadow: 2px 2px 1px black;
     flex-direction: column;
   }
   .assemble {
-    background-position: 0px -20px;
+    background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
   }
