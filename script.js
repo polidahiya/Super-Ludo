@@ -535,3 +535,8 @@ function sidemenu() {
     flags.sidemenu = true;
   }
 }
+
+// loading screen
+document.body.onload=()=>{
+  select1(".loading").style="display:none"
+}

@@ -356,3 +356,16 @@ body {
     height: calc(100vh / 10);
   }
 }
+/* LOading screen */
+.loading{
+  height: 100dvh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-content: center;
+  color: white;
+  z-index: 999;
+  background-color: grey;
+}
